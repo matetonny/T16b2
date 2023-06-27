@@ -1,0 +1,25 @@
+{
+  "name": "tac",
+  "displayName": "TAC",
+  "description": "TAC Programming language for a computer in logisim",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "tac",
+      "aliases": ["t16b-2 assembly code", "tac"],
+      "extensions": [".tac"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "tac",
+      "scopeName": "source.tac",
+      "path": "./syntaxes/tac.tmLanguage.json"
+    }]
+  }
+}

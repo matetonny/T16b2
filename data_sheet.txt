@@ -1,0 +1,15 @@
+====NOTES====
+
+
+
+=====ARCHITECTURE======
+harvard architecture
+
+
+
+======CLOCK======
+2Khz CLOCK
+fetch - execute cycle
+
+
+
