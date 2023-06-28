@@ -1,6 +1,9 @@
 #logs
 project_logs/
 
+#DS_store
+.DS_store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
