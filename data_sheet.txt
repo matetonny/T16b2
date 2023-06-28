@@ -9,7 +9,7 @@ harvard architecture
 
 ======CLOCK======
 2Khz CLOCK
-fetch - execute cycle
+execute - fetch cycle
 
 
 
