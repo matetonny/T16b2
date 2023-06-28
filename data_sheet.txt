@@ -9,7 +9,8 @@ harvard architecture
 
 ======CLOCK======
 2Khz CLOCK
-fetch - execute cycle
+execute - fetch cycle
+1 tick: rising edge -> execute, falling edge fetch
 
 
 
