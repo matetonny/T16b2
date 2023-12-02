@@ -5,9 +5,11 @@ diri          -> direct input
 'b            -> bus
 @<reg name>   -> registers
 #<address>    -> address in RAM
+##            -> the value of the current address in RAM
 
 
 ---CLOCK---
+2048hz or 1024hz depending on the emulator and logisim
 rising edge  -> fetch
 falling edge -> execute
 
@@ -31,11 +33,52 @@ first 16bits in @pa the last 16bits in @pb
 
 
 ---REGISTERS---
-@a   -> accumulator
-@ma  -> RAM memory address
-@pa  -> ROM memory address(first 16bits)
-@pb  -> ROM memory address(last 16bits)
-@fl  -> flags register
-@sp  -> stack pointer
+@a   -> accumulator 1                                  -> 000
+@b   -> accumulator 2                                  -> 001
+@ao  -> ALU output register(integrated with the ALU)   -> 010
+@ma  -> RAM memory address                             -> 011
+@pa  -> ROM memory address(first 16bits)               -> 100
+@pb  -> ROM memory address(last 16bits)                -> 101
+@fl  -> flags register                                 -> 110
+@sp  -> stack pointer                                  -> 111
 
 
+---ALU---
+can execute addition, subtraction, multiplication, division and bitwise operations and, or, not
+the output is stored in @ao(integrated with the ALU)
+the carry, borrow and remainder are stored in the flags register
+
+---MICRO INSTRUCTIONS---
+la   : @a -> 'b
+lb   : @b -> 'b
+lo   : @ao -> 'b
+lf   : @fl -> 'b
+im   : diri -> 'b
+
+sa   : 'b -> @a
+sb   : 'b -> @b
+sm   : 'b -> @ma
+sp   : 'b -> @pa
+sq   : 'b -> @pb
+
+lr   : ## -> 'b
+sr   : 'b -> ##
+
+in   : @sp += 1
+de   : @sp -= 1
+
+ad   : enable +
+su   : enable - 
+mu   : enable *
+di   : enable /
+an   : enable &&
+or   : enable ||
+no   : enable !
+
+
+---INSTRUCTIONS---
+how an insturction is laid out
+
+xxxxxxyyyyyyyyyyyyyyyyzzz
+
+x -> insturction  y -> direct input  z -> enabled register
