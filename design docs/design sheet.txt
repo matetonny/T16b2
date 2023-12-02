@@ -1,0 +1,41 @@
+---DESIGN SHEET---
+
+---TERMS---
+diri          -> direct input
+'b            -> bus
+@<reg name>   -> registers
+#<address>    -> address in RAM
+
+
+---CLOCK---
+rising edge  -> fetch
+falling edge -> execute
+
+
+---MEMORY(RAM)---
+16bit address
+stored in @ma
+
+reserved spaces:
+#0000:#ffff -> free space
+
+stack:
+8bit stack pointer
+commands -> push, pop
+not alowed to change pointer
+
+
+---PROGRAM MEMORY(ROM)---
+32bit address
+first 16bits in @pa the last 16bits in @pb
+
+
+---REGISTERS---
+@a   -> accumulator
+@ma  -> RAM memory address
+@pa  -> ROM memory address(first 16bits)
+@pb  -> ROM memory address(last 16bits)
+@fl  -> flags register
+@sp  -> stack pointer
+
+
