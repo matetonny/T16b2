@@ -6,7 +6,8 @@ diri          -> direct input
 @<reg name>   -> registers
 #<address>    -> address in RAM
 ##            -> the value of the current address in RAM
-
+@@1           -> the first register given in the insturction 
+@@2           -> the second register given in the insturction 
 
 ---CLOCK---
 2048hz or 1024hz depending on the emulator and logisim
@@ -49,17 +50,10 @@ the output is stored in @ao(integrated with the ALU)
 the carry, borrow and remainder are stored in the flags register
 
 ---MICRO INSTRUCTIONS---
-la   : @a -> 'b
-lb   : @b -> 'b
-lo   : @ao -> 'b
-lf   : @fl -> 'b
+lr   : @@1 -> 'b
 im   : diri -> 'b
 
-sa   : 'b -> @a
-sb   : 'b -> @b
-sm   : 'b -> @ma
-sp   : 'b -> @pa
-sq   : 'b -> @pb
+sr   : 'b -> @@1
 
 lr   : ## -> 'b
 sr   : 'b -> ##
@@ -79,6 +73,20 @@ no   : enable !
 ---INSTRUCTIONS---
 how an insturction is laid out
 
-xxxxxxyyyyyyyyyyyyyyyyzzz
+xxxxxxyyyyyyyyyyyyyyyyzzzaaab
 
-x -> insturction  y -> direct input  z -> enabled register
+x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
+
+
+lda   ::  x:00 y:y z:0 a:a  ::  @a/@@1 -> @@2 
+ldb   ::  x:01 y:y z:1 a:a  ::  @b/@@1 -> @@2
+ldo   ::  x:02 y:y z:2 a:a  ::  @ao/@@1 -> @@2
+ldf   ::  x:03 y:y z:6 a:a  ::  @fl/@@1 -> @@2
+
+sta   ::  x:04 y:y z:0 a:a  ::  @@2/diri -> @a
+stb   ::  x:05 y:y z:1 a:a  ::  @@2/diri -> @b
+
+ldra  ::  x:06 y:y z:4 a:a  ::  diri -> @ma/@@1, ## -> @@2
+stra  ::  x:07 y:y z:4 a:a  ::  diri -> @ma/@@1, @@2/diri -> ##
+
+add   ::  x:08 y:y z
