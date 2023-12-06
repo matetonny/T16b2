@@ -7,7 +7,10 @@ diri          -> direct input
 #<address>    -> address in RAM
 ##            -> the value of the current address in RAM
 @@1           -> the first register given in the insturction 
-@@2           -> the second register given in the insturction 
+@@2           -> the second register given in the insturction
+#st           -> stack
+>>#st         -> push to stack
+#st>>         -> pop stack
 
 ---CLOCK---
 2048hz or 1024hz depending on the emulator and logisim
@@ -69,6 +72,9 @@ an   : enable &&
 or   : enable ||
 no   : enable !
 
+ep   : enable @pa
+eq   : enable @pb
+
 
 ---INSTRUCTIONS---
 how an insturction is laid out
@@ -78,15 +84,28 @@ xxxxxxyyyyyyyyyyyyyyyyzzzaaab
 x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
 
 
-lda   ::  x:00 y:y z:0 a:a  ::  @a/@@1 -> @@2 
-ldb   ::  x:01 y:y z:1 a:a  ::  @b/@@1 -> @@2
-ldo   ::  x:02 y:y z:2 a:a  ::  @ao/@@1 -> @@2
-ldf   ::  x:03 y:y z:6 a:a  ::  @fl/@@1 -> @@2
+lda   ::  x:00 y:y z:0 a:0 b:b ::  @a -> @@2 
+ldb   ::  x:01 y:y z:1 a:1 b:b ::  @b -> @@2
+ldo   ::  x:02 y:y z:2 a:2 b:b ::  @ao -> @@2
+ldf   ::  x:03 y:y z:6 a:6 b:b ::  @fl -> @@2
 
-sta   ::  x:04 y:y z:0 a:a  ::  @@2/diri -> @a
-stb   ::  x:05 y:y z:1 a:a  ::  @@2/diri -> @b
+sta   ::  x:04 y:y z:0 a:0 b:b ::  @@2/diri -> @a
+stb   ::  x:05 y:y z:1 a:1 b:b ::  @@2/diri -> @b
 
-ldra  ::  x:06 y:y z:4 a:a  ::  diri -> @ma/@@1, ## -> @@2
-stra  ::  x:07 y:y z:4 a:a  ::  diri -> @ma/@@1, @@2/diri -> ##
+ldra  ::  x:06 y:y z:4 a:a b:b ::  diri -> @ma/@@1, ## -> @@2
+stra  ::  x:07 y:y z:4 a:a b:b ::  diri -> @ma/@@1, @@2/diri -> ##
 
-add   ::  x:08 y:y z
+add   ::  x:08 y:y z:z a:a b:b ::  @@1/diri + @@2 -> @ao
+sub   ::  x:09 y:y z:z a:a b:b ::  @@1/diri - @@2 -> @ao
+mul   ::  x:0a y:y z:z a:a b:b ::  @@1/diri * @@2 -> @ao
+div   ::  x:0b y:y z:z a:a b:b ::  @@1/diri / @@2 -> @ao
+and   ::  x:0c y:y z:z a:a b:b ::  @@1/diri && @@2 -> @ao
+or    ::  x:0d y:y z:z a:a b:b ::  @@1/diri || @@2 -> @ao
+not   ::  x:0e y:y z:z a:a b:b ::  ! @@1/diri -> @ao
+
+jmp   ::  x:0f y:y z:z a:a b:b ::  @pa >>#st, @pb >>#st, @@1/diri + -> @pa, @@2 -> @pb 
+jpfz  ::  x:10 y:y z:z a:a b:b ::  @fl==0000{@pa >>#st, @@1/diri + -> @pa, @@2 -> @pb}
+jpaz  ::  x:11 y:y z:4 a:5 b:b ::  @a==0000{@pa >>#st, @@1/diri + -> @pa, @@2 -> @pb}
+
+push  ::  x:12 y:y z:z a:a b:b ::  @@1 >>#st 
+pop   ::  x:13 y:y z:0 a:a b:b ::  #st>> @@1
