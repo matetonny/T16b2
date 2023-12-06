@@ -77,13 +77,12 @@ eq   : enable @pb
 
 
 ---INSTRUCTIONS---
-how an insturction is laid out
-
+layout:
 xxxxxxyyyyyyyyyyyyyyyyzzzaaab
 
 x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
 
-
+insturctions:
 lda   ::  x:00 y:y z:0 a:0 b:b ::  @a -> @@2 
 ldb   ::  x:01 y:y z:1 a:1 b:b ::  @b -> @@2
 ldo   ::  x:02 y:y z:2 a:2 b:b ::  @ao -> @@2
