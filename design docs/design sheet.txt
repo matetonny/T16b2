@@ -12,6 +12,10 @@ diri          -> direct input
 >>#st         -> push to stack
 #st>>         -> pop stack
 
+---RUNNING PROGRAMS---
+The computer only runs programs ending in .hex file extension.
+When it starts it will try to run the program with the name "boot.hex" in its current dir.
+
 ---CLOCK---
 2048hz or 1024hz depending on the emulator and logisim
 rising edge  -> fetch
@@ -23,7 +27,7 @@ falling edge -> execute
 stored in @ma
 
 reserved spaces:
-#0x0000:#0xffff -> free space
+#0x0000:#0xfffe -> free space
 
 stack:
 8bit stack pointer
@@ -79,7 +83,7 @@ eq   : enable @pb
 
 ---INSTRUCTIONS---
 layout:
-xxxxxxyyyyyyyyyyyyyyyyzzzaaab
+xxxxxx00 yyyyyyyy yyyyyyyy zzzaaab0
 
 x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
 
