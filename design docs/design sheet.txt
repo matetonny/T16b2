@@ -37,6 +37,7 @@ not alowed to change pointer
 
 ---PROGRAM MEMORY(ROM)---
 32bit address
+each insturction is 32bits
 first 16bits in @pa the last 16bits in @pb
 
 
@@ -83,7 +84,7 @@ eq   : enable @pb
 
 ---INSTRUCTIONS---
 layout:
-xxxxxx00 yyyyyyyy yyyyyyyy zzzaaab0
+00xxxxxx yyyyyyyy yyyyyyyy zzzaaab0
 
 x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
 
