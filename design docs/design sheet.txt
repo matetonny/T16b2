@@ -97,8 +97,8 @@ ldf   ::  x:03 y:y z:6 a:6 b:b ::  @fl -> @@2
 sta   ::  x:04 y:y z:0 a:0 b:b ::  @@2/diri -> @a
 stb   ::  x:05 y:y z:1 a:1 b:b ::  @@2/diri -> @b
 
-ldra  ::  x:06 y:y z:4 a:a b:b ::  diri -> @ma/@@1, ## -> @@2
-stra  ::  x:07 y:y z:4 a:a b:b ::  diri -> @ma/@@1, @@2/diri -> ##
+ldr  ::  x:06 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, ## -> @@2
+str  ::  x:07 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, @@2 -> ##
 
 add   ::  x:08 y:y z:z a:a b:b ::  @@1/diri + @@2 -> @ao
 sub   ::  x:09 y:y z:z a:a b:b ::  @@1/diri - @@2 -> @ao
@@ -107,7 +107,7 @@ div   ::  x:0b y:y z:z a:a b:b ::  @@1/diri / @@2 -> @ao
 and   ::  x:0c y:y z:z a:a b:b ::  @@1/diri && @@2 -> @ao
 or    ::  x:0d y:y z:z a:a b:b ::  @@1/diri || @@2 -> @ao
 not   ::  x:0e y:y z:z a:a b:b ::  !@@1/!diri -> @ao
-comp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @ao}, @@1/diri==@@2{0x0001 -> @ao}, @@1/diri>@@2{0xffff -> @ao}
+comp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
 
 jmp   ::  x:10 y:y z:z a:a b:b ::  @pa >>#st, @pb >>#st, @@1/diri + -> @pa, @@2 -> @pb 
 jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pa >>#st, @@1/diri + -> @pa, @@2 -> @pb}
@@ -115,3 +115,5 @@ jpaz  ::  x:12 y:y z:4 a:5 b:b ::  @a==0x0000{@pa >>#st, @@1/diri + -> @pa, @@2 
 
 push  ::  x:13 y:y z:z a:a b:b ::  @@1 >>#st 
 pop   ::  x:14 y:y z:0 a:a b:b ::  #st>> @@1
+
+hlt   ::  x:15 y:y z:z a:a b:b ::  halt
