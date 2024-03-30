@@ -1,8 +1,0 @@
-program<
-
-sta #ffff
-str $0 @a
-
->program
-
-<program>
