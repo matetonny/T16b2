@@ -84,7 +84,7 @@ eq   : enable @pb
 
 ---INSTRUCTIONS---
 layout:
-00xxxxxx yyyyyyyy yyyyyyyy zzzaaab0
+00xxxxxx yyyyyyyy yyyyyyyy 0zzzaaab
 
 x -> insturction  y -> direct input(diri)  z -> first enabled register(@@1)  a -> second enabled register(@@2)  b->@@/diri
 
