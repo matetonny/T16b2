@@ -185,7 +185,48 @@ int main(int argc, char const *argv[]){
                     }
 
                     break;
+                
+                //div
+                case 0x0b:
+                    if (!comp_instruction.rod){
+                        ao = (*registers[comp_instruction.fer] / *registers[comp_instruction.ser]) & 0xffff;
+                        fl = (*registers[comp_instruction.fer] % *registers[comp_instruction.ser]) & 0xffff;
+                    } else {
+                        ao = (comp_instruction.diri / *registers[comp_instruction.ser]) & 0xffff;
+                        fl = (comp_instruction.diri % *registers[comp_instruction.ser]) & 0xffff;
+                    }
 
+                    break;
+
+                //and
+                case 0x0c:
+                    if (!comp_instruction.rod){
+                        ao = *registers[comp_instruction.fer] & *registers[comp_instruction.ser];
+                    } else {
+                        ao = comp_instruction.diri & *registers[comp_instruction.ser];
+                    }
+
+                    break;
+
+                //or
+                case 0x0d:
+                    if (!comp_instruction.rod){
+                        ao = *registers[comp_instruction.fer] | *registers[comp_instruction.ser];
+                    } else {
+                        ao = comp_instruction.diri | *registers[comp_instruction.ser];
+                    }
+
+                    break;
+
+                //not
+                case 0x0e:
+                    if (!comp_instruction.rod){
+                        ao = ~*registers[comp_instruction.fer];
+                    } else {
+                        ao = ~comp_instruction.diri;
+                    }
+
+                    break;
 
                 // hlt
                 case 0x15:
