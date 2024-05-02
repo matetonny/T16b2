@@ -29,6 +29,8 @@ stored in @ma
 reserved spaces:
 #0x0000:#0xfffe -> free space
 
+16 banks. bank number stored in @bk
+
 stack:
 8bit stack pointer
 commands -> push, pop
@@ -36,9 +38,9 @@ not alowed to change pointer
 
 
 ---PROGRAM MEMORY(ROM)---
-32bit address
-each insturction is 32bits
-first 16bits in @pa the last 16bits in @pb
+16bit address
+each insturction is 32bits(4 bytes)
+
 
 
 ---REGISTERS---
@@ -46,11 +48,10 @@ first 16bits in @pa the last 16bits in @pb
 @b   -> accumulator 2                                  -> 0b001
 @ao  -> ALU output register(integrated with the ALU)   -> 0b010
 @ma  -> RAM memory address                             -> 0b011
-@pa  -> ROM memory address(first 16bits)               -> 0b100
-@pb  -> ROM memory address(last 16bits)                -> 0b101
-@fl  -> flags register                                 -> 0b110
-@sp  -> stack pointer                                  -> 0b111
-
+@pm  -> ROM memory address                             -> 0b100
+@fl  -> flags register                                 -> 0b101
+@sp  -> stack pointer(8 bits)                          -> 0b110
+@bk  -> bank register(4 bits)                          -> 0b111
 
 ---ALU---
 can execute addition, subtraction, multiplication, division and bitwise operations and, or, not
@@ -109,11 +110,11 @@ or    ::  x:0d y:y z:z a:a b:b ::  @@1/diri || @@2 -> @ao
 not   ::  x:0e y:y z:z a:a b:b ::  !@@1/!diri -> @ao
 comp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
 
-jmp   ::  x:10 y:y z:z a:a b:b ::  @pa >>#st, @pb >>#st, @@1/diri + -> @pa, @@2 -> @pb 
-jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pa >>#st, @@1/diri + -> @pa, @@2 -> @pb}
-jpaz  ::  x:12 y:y z:4 a:5 b:b ::  @a==0x0000{@pa >>#st, @@1/diri + -> @pa, @@2 -> @pb}
+jmp   ::  x:10 y:y z:z a:a b:b ::  @pm >>#st, @@1/diri -> @pb 
+jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pb }
+jpaz  ::  x:12 y:y z:4 a:5 b:b ::  @a==0x0000{@pm >>#st, @@1/diri -> @pb }
 
-push  ::  x:13 y:y z:z a:a b:b ::  @@1 >>#st 
-pop   ::  x:14 y:y z:0 a:a b:b ::  #st>> @@1
+push  ::  x:13 y:y z:z a:a b:b ::  @@1 >>#st, sp ++
+pop   ::  x:14 y:y z:0 a:a b:b ::  #st>> @@1, @sp --
 
 hlt   ::  x:15 y:y z:z a:a b:b ::  halt
