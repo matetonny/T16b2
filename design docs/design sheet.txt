@@ -80,7 +80,7 @@ no   : enable !
 cm   : enable = > <
 
 ep   : enable @pa
-eq   : enable @pb
+eq   : enable @om
 
 
 ---INSTRUCTIONS---
@@ -108,11 +108,11 @@ div   ::  x:0b y:y z:z a:a b:b ::  @@1/diri / @@2 -> @ao
 and   ::  x:0c y:y z:z a:a b:b ::  @@1/diri && @@2 -> @ao
 or    ::  x:0d y:y z:z a:a b:b ::  @@1/diri || @@2 -> @ao
 not   ::  x:0e y:y z:z a:a b:b ::  !@@1/!diri -> @ao
-comp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
+cmp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
 
-jmp   ::  x:10 y:y z:z a:a b:b ::  @pm >>#st, @@1/diri -> @pb 
-jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pb }
-jpaz  ::  x:12 y:y z:4 a:5 b:b ::  @a==0x0000{@pm >>#st, @@1/diri -> @pb }
+jmp   ::  x:10 y:y z:z a:a b:b ::  @pm >>#st, @@1/diri -> @pm 
+jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pm }
+jpff  ::  x:12 y:y z:4 a:5 b:b ::  @fl==0xffff{@pm >>#st, @@1/diri -> @pm }
 
 push  ::  x:13 y:y z:z a:a b:b ::  @@1 >>#st, sp ++
 pop   ::  x:14 y:y z:0 a:a b:b ::  #st>> @@1, @sp --
