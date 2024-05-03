@@ -1,0 +1,1 @@
+const int PROGRAM_SIZE = 100000;
