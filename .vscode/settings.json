@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"complex": "c",
-		"instsfuncs.h": "c"
+		"instsfuncs.h": "c",
+		"assembler.h": "c"
 	}
 }

@@ -10,6 +10,12 @@ int main(int argc, char const *argv[]){
     FILE *pfile;
     pfile = fopen("programs/boot.hex", "rb");
 
+    // exit if file doesnt open
+    if (pfile == NULL){
+        printf("Not able to open the file.");
+        return 1;
+    }
+
     char boot_program[PROGRAM_SIZE];
 
     fgets(boot_program, PROGRAM_SIZE, pfile);
