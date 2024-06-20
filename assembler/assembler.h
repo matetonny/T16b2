@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-
-const int PROGRAM_SIZE = 65536;
+#define program_size 65536
 
 typedef struct token {
     char token_type;
