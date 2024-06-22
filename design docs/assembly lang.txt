@@ -1,0 +1,34 @@
+---ASSEMBLY LANGUAGE FOR T16b2---
+
+---INSTRUCTIONS---
+
+name  :: function                                                                                           :: args
+
+lda   :: load @a into another register(@@2)                                                                 :: @@2
+ldb   :: load @b into another register(@@2)                                                                 :: @@2
+ldo   :: load @ao into another register(@@2)                                                                :: @@2
+ldf   :: load @fl into another register(@@2)                                                                :: @@2
+
+sta   :: store a word(diri) or another register(@@2) in @a                                                  :: diri/@@2
+stb   :: store a word(diri) or another register(@@2) in @b                                                  :: diri/@@2
+
+ldr   :: load a word from an address(diri/@@1) in RAM into a register(@@2)                                  :: diri/@@1, @@2
+str   :: store a word in an address(diri/@@1) in RAM from a register(@@2)                                   :: diri/@@1, @@2
+
+add   :: add a word/register(diri/@@1) and another register(@@2) and put it into @ao                        :: diri/@@1, @@2
+sub   :: subtract a word/register(diri/@@1) and another register(@@2) and put it into @ao                   :: diri/@@1, @@2
+mul   :: multiply a word/register(diri/@@1) and another register(@@2) and put it into @ao                   :: diri/@@1, @@2
+div   :: divide a word/register(diri/@@1) and another register(@@2) and put it into @ao                     :: diri/@@1, @@2
+and   :: bitwise and a word/register(diri/@@1) and another register(@@2) and put it into @ao                :: diri/@@1, @@2
+or    :: bitwise or a word/register(diri/@@1) and another register(@@2) and put it into @ao                 :: diri/@@1, @@2
+not   :: bitwise not a word/register(diri/@@1) and put it into @ao                                          :: diri/@@1, @@2
+cmp   :: compare a word/register(diri/@@1) and another register(@@2) and put th result into @fl             :: diri/@@1, @@2
+
+jmp   :: jump to an address(diri/@@1) in program memory and push curret adress to the stack                 :: diri/@@1, @@2
+jpfz  :: if @fl==0x0000: jump to an address(diri/@@1) in program memory and push curret adress to the stack :: diri/@@1, @@2
+jpff  :: if @fl==0xffff: jump to an address(diri/@@1) in program memory and push curret adress to the stack :: diri/@@1, @@2
+
+push  :: push a register onto the stack(@@1)                                                                :: @@1
+pop   :: pop the stack and store it to a register(@@1)                                                      :: @@1
+
+hlt   :: stop the program                                                                                   :: n/a

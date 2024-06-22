@@ -29,7 +29,8 @@ int main(int argc, char const *argv[]){
     }
 
     fclose(pfile);
-
+    
+    // define variables and allocate memory for tokenizing the program
     char* str;
     const char* delim = " ";
     int num_tokens;

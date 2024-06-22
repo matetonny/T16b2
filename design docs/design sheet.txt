@@ -1,5 +1,6 @@
 ---DESIGN SHEET---
 
+
 ---TERMS---
 diri          -> direct input
 'b            -> bus
@@ -12,9 +13,11 @@ diri          -> direct input
 >>#st         -> push to stack
 #st>>         -> pop stack
 
+
 ---RUNNING PROGRAMS---
 The computer only runs programs ending in .hex file extension.
 When it starts it will try to run the program with the name "boot.hex" in its current dir.
+
 
 ---CLOCK---
 2048hz or 1024hz depending on the emulator and logisim
@@ -42,7 +45,6 @@ not alowed to change pointer
 each insturction is 32bits(4 bytes)
 
 
-
 ---REGISTERS---
 @a   -> accumulator 1                                  -> 0b000
 @b   -> accumulator 2                                  -> 0b001
@@ -53,34 +55,11 @@ each insturction is 32bits(4 bytes)
 @sp  -> stack pointer(8 bits)                          -> 0b110
 @bk  -> bank register(4 bits)                          -> 0b111
 
+
 ---ALU---
 can execute addition, subtraction, multiplication, division and bitwise operations and, or, not
 the output is stored in @ao(integrated with the ALU)
 the carry, borrow and remainder are stored in the flags register
-
----MICRO INSTRUCTIONS---
-lr   : @@1 -> 'b
-im   : diri -> 'b
-
-sr   : 'b -> @@1
-
-lr   : ## -> 'b
-sr   : 'b -> ##
-
-in   : @sp += 1
-de   : @sp -= 1
-
-ad   : enable +
-su   : enable - 
-mu   : enable *
-di   : enable /
-an   : enable &&
-or   : enable ||
-no   : enable !
-cm   : enable = > <
-
-ep   : enable @pa
-eq   : enable @om
 
 
 ---INSTRUCTIONS---
@@ -98,8 +77,8 @@ ldf   ::  x:03 y:y z:6 a:6 b:b ::  @fl -> @@2
 sta   ::  x:04 y:y z:0 a:0 b:b ::  @@2/diri -> @a
 stb   ::  x:05 y:y z:1 a:1 b:b ::  @@2/diri -> @b
 
-ldr  ::  x:06 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, ## -> @@2
-str  ::  x:07 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, @@2 -> ##
+ldr   ::  x:06 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, ## -> @@2
+str   ::  x:07 y:y z:4 a:a b:b ::  diri/@@1 -> @ma, @@2 -> ##
 
 add   ::  x:08 y:y z:z a:a b:b ::  @@1/diri + @@2 -> @ao
 sub   ::  x:09 y:y z:z a:a b:b ::  @@1/diri - @@2 -> @ao
@@ -108,7 +87,7 @@ div   ::  x:0b y:y z:z a:a b:b ::  @@1/diri / @@2 -> @ao
 and   ::  x:0c y:y z:z a:a b:b ::  @@1/diri && @@2 -> @ao
 or    ::  x:0d y:y z:z a:a b:b ::  @@1/diri || @@2 -> @ao
 not   ::  x:0e y:y z:z a:a b:b ::  !@@1/!diri -> @ao
-cmp  ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
+cmp   ::  x:0f y:y z:z a:a b:b ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}
 
 jmp   ::  x:10 y:y z:z a:a b:b ::  @pm >>#st, @@1/diri -> @pm 
 jpfz  ::  x:11 y:y z:z a:a b:b ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pm }
