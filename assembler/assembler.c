@@ -44,9 +44,8 @@ int main(int argc, char const *argv[])
     {
         tokenized_program[b] = (token *)malloc(4 * sizeof(token));
     }
-    int token_counter = 0;
 
-    // loop through the input program and tokenize it
+    // loop through the input program
     for (int i = 0; i < counter + 1; i++)
     {
         str = input_program[i];
@@ -57,19 +56,19 @@ int main(int argc, char const *argv[])
             // detect what type of token it is
             if (is_instruction(tokens[j]))
             {
-                tokenized_program[i][token_counter].token_type = 'f';
+                tokenized_program[i][j].token_type = 'f';
             }
             else if (starts_with(tokens[j], "0x") || is_number(tokens[j]))
             {
-                tokenized_program[i][token_counter].token_type = 'i';
+                tokenized_program[i][j].token_type = 'i';
             }
             else if (is_register(tokens[j]))
             {
-                tokenized_program[i][token_counter].token_type = 'r';
+                tokenized_program[i][j].token_type = 'r';
             }
             else if (starts_with(tokens[j], "#"))
             {
-                tokenized_program[i][token_counter].token_type = 'm';
+                tokenized_program[i][j].token_type = 'm';
             }
             else
             {
@@ -77,26 +76,31 @@ int main(int argc, char const *argv[])
                 return 1;
             }
 
-            strcpy(tokenized_program[i][token_counter].value, tokens[j]);
-            printf("%s, %c, %d, %d\n", tokenized_program[i][token_counter].value, tokenized_program[i][token_counter].token_type, token_counter, i);
-
-            token_counter++;
+            strcpy(tokenized_program[i][j].value, tokens[j]);
         }
     }
 
+    // define variables to compile the program
     char compiled_program[program_size * 4];
 
-    // loop through the tokenized program and turn it into bytes
-    for (int i = 0; i < sizeof(tokenized_program) / 4; i++)
+    // loop through the tokenized program
+    for (int i = 0; i < counter; i++)
     {
-        token current_line[4];
         for (int j = 0; j < 4; j++)
         {
-            current_line[j] = tokenized_program[i][j];
-            printf("%c\n", current_line[j].token_type);
-            printf("%c\n", tokenized_program[i][j].token_type);
+            if (tokenized_program[i][j].value[0] != '\0')
+            {
+                printf("Token %d: Value: %s, Type: %c\n", j, tokenized_program[i][j].value, tokenized_program[i][j].token_type);
+            }
         }
     }
+
+    // free allocated memory
+    for (int b = 0; b < program_size; ++b)
+    {
+        free(tokenized_program[b]);
+    }
+    free(tokenized_program);
 
     return 0;
 }
