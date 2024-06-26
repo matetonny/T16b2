@@ -32,3 +32,10 @@ push  :: push a register onto the stack(@@1)                                    
 pop   :: pop the stack and store it to a register(@@1)                                                      :: @@1
 
 hlt   :: stop the program                                                                                   :: n/a
+
+
+---TOKEN TYPES---
+instruction :: f 
+integer     :: i
+register    :: r
+memory addr :: m
