@@ -39,8 +39,8 @@ int main(int argc, char const *argv[])
     const char *delim = " ";
     int num_tokens;
     char **tokens;
-    token **tokenized_program = (token **)malloc(program_size * sizeof(token **));
-    for (int b = 0; b < 4; ++b)
+    token **tokenized_program = (token **)malloc(counter * sizeof(token *));
+    for (int b = 0; b < counter; ++b)
     {
         tokenized_program[b] = (token *)malloc(4 * sizeof(token));
     }
@@ -93,7 +93,6 @@ int main(int argc, char const *argv[])
             return 1;
         }
 
-        // im sorry for this part
         if (strcmp(tokenized_program[i][0].value, "lda") == 0)
         {
             compiled_program[i * 4] = 0x0;
@@ -183,8 +182,6 @@ int main(int argc, char const *argv[])
             compiled_program[i * 4] = 0x15;
         }
 
-        printf("%d", compiled_program[i * 4]);
-
         for (int j = 0; j < 4; j++)
         {
 
@@ -196,7 +193,7 @@ int main(int argc, char const *argv[])
     }
 
     // free allocated memory
-    for (int b = 0; b < program_size; ++b)
+    for (int b = 0; b < counter; ++b)
     {
         free(tokenized_program[b]);
     }
