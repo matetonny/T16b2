@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 // define instructions and program structs
-typedef struct Instruction{
+typedef struct Instruction
+{
     char instruction;
     u_int16_t diri;
     char fer;
@@ -9,7 +10,8 @@ typedef struct Instruction{
     bool rod;
 } Instruction;
 
-u_int16_t mergeCharsToUInt16(char highByte, char lowByte) {
+u_int16_t mergeCharsToUInt16(char highByte, char lowByte)
+{
     u_int16_t result = ((u_int16_t)(highByte & 0xFF) << 8) | (lowByte & 0xFF);
 
     return result;
@@ -36,8 +38,7 @@ u_int16_t *registers[8] = {
     &pm,
     &fl,
     &sp,
-    &bk
-};
+    &bk};
 
 u_int16_t memory[16][twoToSixteen];
 u_int16_t stack[256];

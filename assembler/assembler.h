@@ -6,11 +6,21 @@
 
 #define program_size 65536
 
+// define structs
 typedef struct token
 {
     char token_type;
     char value[100];
 } token;
+
+typedef struct Instruction
+{
+    char instruction;
+    u_int16_t diri;
+    char fer;
+    char ser;
+    bool rod;
+} Instruction;
 
 // function to split a string by a given delimiter
 char **split(char *str, const char *delim, int *num_tokens)
@@ -156,4 +166,33 @@ bool is_register(char str[])
     }
 
     return false;
+}
+
+// function to split uint16
+void split_uint16(uint16_t input, char *high_byte, char *low_byte)
+{
+    *high_byte = (char)((input >> 8) & 0xFF); // Extract high byte
+    *low_byte = (char)(input & 0xFF);         // Extract low byte
+}
+
+// function to turn string into a number
+uint16_t string_to_uint16(const char *str)
+{
+    char *endptr;
+    int base = 10; // Default base
+
+    // Check if the string starts with "0x" or "0X" to identify it as hexadecimal
+    if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X'))
+    {
+        base = 16;
+    }
+
+    return (uint16_t)strtol(str, &endptr, base);
+}
+
+u_int16_t mergeCharsToUInt16(char highByte, char lowByte)
+{
+    u_int16_t result = ((u_int16_t)(highByte & 0xFF) << 8) | (lowByte & 0xFF);
+
+    return result;
 }

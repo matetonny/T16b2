@@ -95,91 +95,91 @@ int main(int argc, char const *argv[])
 
         if (strcmp(tokenized_program[i][0].value, "lda") == 0)
         {
-            compiled_program[i * 4] = 0x0;
+            current_line_compiled[0] = 0x0;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldb") == 0)
         {
-            compiled_program[i * 4] = 0x1;
+            current_line_compiled[0] = 0x1;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldo") == 0)
         {
-            compiled_program[i * 4] = 0x2;
+            current_line_compiled[0] = 0x2;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldf") == 0)
         {
-            compiled_program[i * 4] = 0x3;
+            current_line_compiled[0] = 0x3;
         }
         else if (strcmp(tokenized_program[i][0].value, "sta") == 0)
         {
-            compiled_program[i * 4] = 0x4;
+            current_line_compiled[0] = 0x4;
         }
         else if (strcmp(tokenized_program[i][0].value, "stb") == 0)
         {
-            compiled_program[i * 4] = 0x5;
+            current_line_compiled[0] = 0x5;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldr") == 0)
         {
-            compiled_program[i * 4] = 0x6;
+            current_line_compiled[0] = 0x6;
         }
         else if (strcmp(tokenized_program[i][0].value, "str") == 0)
         {
-            compiled_program[i * 4] = 0x7;
+            current_line_compiled[0] = 0x7;
         }
         else if (strcmp(tokenized_program[i][0].value, "add") == 0)
         {
-            compiled_program[i * 4] = 0x8;
+            current_line_compiled[0] = 0x8;
         }
         else if (strcmp(tokenized_program[i][0].value, "sub") == 0)
         {
-            compiled_program[i * 4] = 0x9;
+            current_line_compiled[0] = 0x9;
         }
         else if (strcmp(tokenized_program[i][0].value, "mul") == 0)
         {
-            compiled_program[i * 4] = 0xa;
+            current_line_compiled[0] = 0xa;
         }
         else if (strcmp(tokenized_program[i][0].value, "div") == 0)
         {
-            compiled_program[i * 4] = 0xb;
+            current_line_compiled[0] = 0xb;
         }
         else if (strcmp(tokenized_program[i][0].value, "and") == 0)
         {
-            compiled_program[i * 4] = 0xc;
+            current_line_compiled[0] = 0xc;
         }
         else if (strcmp(tokenized_program[i][0].value, "or") == 0)
         {
-            compiled_program[i * 4] = 0xd;
+            current_line_compiled[0] = 0xd;
         }
         else if (strcmp(tokenized_program[i][0].value, "not") == 0)
         {
-            compiled_program[i * 4] = 0xe;
+            current_line_compiled[0] = 0xe;
         }
         else if (strcmp(tokenized_program[i][0].value, "cmp") == 0)
         {
-            compiled_program[i * 4] = 0xf;
+            current_line_compiled[0] = 0xf;
         }
         else if (strcmp(tokenized_program[i][0].value, "jmp") == 0)
         {
-            compiled_program[i * 4] = 0x10;
+            current_line_compiled[0] = 0x10;
         }
         else if (strcmp(tokenized_program[i][0].value, "jmfz") == 0)
         {
-            compiled_program[i * 4] = 0x11;
+            current_line_compiled[0] = 0x11;
         }
         else if (strcmp(tokenized_program[i][0].value, "jmff") == 0)
         {
-            compiled_program[i * 4] = 0x12;
+            current_line_compiled[0] = 0x12;
         }
         else if (strcmp(tokenized_program[i][0].value, "push") == 0)
         {
-            compiled_program[i * 4] = 0x13;
+            current_line_compiled[0] = 0x13;
         }
         else if (strcmp(tokenized_program[i][0].value, "pop") == 0)
         {
-            compiled_program[i * 4] = 0x14;
+            current_line_compiled[0] = 0x14;
         }
         else if (strcmp(tokenized_program[i][0].value, "hlt") == 0)
         {
-            compiled_program[i * 4] = 0x15;
+            current_line_compiled[0] = 0x15;
         }
 
         for (int j = 0; j < 4; j++)
@@ -188,6 +188,11 @@ int main(int argc, char const *argv[])
             if (tokenized_program[i][j].value[0] != '\0')
             {
                 printf("Token %d, Value %s, Type: %c\n", j, tokenized_program[i][j].value, tokenized_program[i][j].token_type);
+
+                if (tokenized_program[i][j].token_type == 'i')
+                {
+                    split_uint16(string_to_uint16(tokenized_program[i][j].value), &current_line_compiled[1], &current_line_compiled[2]);
+                }
             }
         }
     }
