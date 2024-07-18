@@ -31,7 +31,6 @@ int main(int argc, char const *argv[])
     {
         processed_program[i / 4].instruction = boot_program[i] & 0b00111111;
         processed_program[i / 4].diri = mergeCharsToUInt16(boot_program[i + 1], boot_program[i + 2]);
-        ;
         processed_program[i / 4].fer = (boot_program[i + 3] >> 4) & 0b00000111;
         processed_program[i / 4].ser = (boot_program[i + 3] >> 1) & 0b00000111;
         processed_program[i / 4].rod = boot_program[i + 3] & 0b00000001;

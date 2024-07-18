@@ -83,6 +83,8 @@ int main(int argc, char const *argv[])
     // define variables to compile the program
     char compiled_program[program_size * 4];
     char current_line_compiled[4];
+    char fer;
+    char ser;
 
     // loop through the tokenized program
     for (int i = 0; i < counter; i++)
@@ -96,26 +98,32 @@ int main(int argc, char const *argv[])
         if (strcmp(tokenized_program[i][0].value, "lda") == 0)
         {
             current_line_compiled[0] = 0x0;
+            fer = 0;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldb") == 0)
         {
             current_line_compiled[0] = 0x1;
+            fer = 1;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldo") == 0)
         {
             current_line_compiled[0] = 0x2;
+            fer = 2;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldf") == 0)
         {
             current_line_compiled[0] = 0x3;
+            fer = 5;
         }
         else if (strcmp(tokenized_program[i][0].value, "sta") == 0)
         {
             current_line_compiled[0] = 0x4;
+            fer = 0;
         }
         else if (strcmp(tokenized_program[i][0].value, "stb") == 0)
         {
             current_line_compiled[0] = 0x5;
+            fer = 1;
         }
         else if (strcmp(tokenized_program[i][0].value, "ldr") == 0)
         {
