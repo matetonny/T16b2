@@ -171,8 +171,8 @@ bool is_register(char str[])
 // function to split uint16
 void split_uint16(uint16_t input, char *high_byte, char *low_byte)
 {
-    *high_byte = (char)((input >> 8) & 0xFF); // Extract high byte
-    *low_byte = (char)(input & 0xFF);         // Extract low byte
+    *high_byte = (char)((input >> 8) & 0xFF);
+    *low_byte = (char)(input & 0xFF);
 }
 
 // function to turn string into a number
@@ -181,7 +181,7 @@ uint16_t string_to_uint16(const char *str)
     char *endptr;
     int base = 10; // Default base
 
-    // Check if the string starts with "0x" or "0X" to identify it as hexadecimal
+    // check if the string starts with "0x" or "0X" to identify it as hexadecimal
     if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X'))
     {
         base = 16;
@@ -190,9 +190,38 @@ uint16_t string_to_uint16(const char *str)
     return (uint16_t)strtol(str, &endptr, base);
 }
 
-u_int16_t mergeCharsToUInt16(char highByte, char lowByte)
+void assign_reg(char reg_in[2], char *reg_out)
 {
-    u_int16_t result = ((u_int16_t)(highByte & 0xFF) << 8) | (lowByte & 0xFF);
-
-    return result;
+    if (strcmp(reg_in, "a") == 0)
+    {
+        *reg_out = 0;
+    }
+    else if (strcmp(reg_in, "b") == 0)
+    {
+        *reg_out = 1;
+    }
+    else if (strcmp(reg_in, "ao") == 0)
+    {
+        *reg_out = 2;
+    }
+    else if (strcmp(reg_in, "ma") == 0)
+    {
+        *reg_out = 3;
+    }
+    else if (strcmp(reg_in, "pm") == 0)
+    {
+        *reg_out = 4;
+    }
+    else if (strcmp(reg_in, "fl") == 0)
+    {
+        *reg_out = 5;
+    }
+    else if (strcmp(reg_in, "sp") == 0)
+    {
+        *reg_out = 6;
+    }
+    else if (strcmp(reg_in, "bk") == 0)
+    {
+        *reg_out = 7;
+    }
 }

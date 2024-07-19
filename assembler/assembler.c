@@ -85,6 +85,9 @@ int main(int argc, char const *argv[])
     char current_line_compiled[4];
     char fer;
     char ser;
+    char reg1;
+    char reg2;
+    char reg[2];
 
     // loop through the tokenized program
     for (int i = 0; i < counter; i++)
@@ -94,6 +97,9 @@ int main(int argc, char const *argv[])
             printf("\e[0;31merror: unexpected token [%d]", i);
             return 1;
         }
+
+        reg1 = '\0';
+        reg2 = '\0';
 
         if (strcmp(tokenized_program[i][0].value, "lda") == 0)
         {
@@ -192,7 +198,6 @@ int main(int argc, char const *argv[])
 
         for (int j = 0; j < 4; j++)
         {
-
             if (tokenized_program[i][j].value[0] != '\0')
             {
                 printf("Token %d, Value %s, Type: %c\n", j, tokenized_program[i][j].value, tokenized_program[i][j].token_type);
@@ -200,6 +205,27 @@ int main(int argc, char const *argv[])
                 if (tokenized_program[i][j].token_type == 'i')
                 {
                     split_uint16(string_to_uint16(tokenized_program[i][j].value), &current_line_compiled[1], &current_line_compiled[2]);
+                }
+                else if (tokenized_program[i][j].token_type == 'r')
+                {
+                    reg[0] = tokenized_program[i][j].value[1];
+                    reg[1] = tokenized_program[i][j].value[2];
+
+                    if (reg1 == '\0')
+                    {
+                        assign_reg(reg, &reg1);
+                        printf("%d\n", reg1);
+                    }
+                    else if (reg2 == '\0')
+                    {
+                        assign_reg(reg, &reg2);
+                        printf("%d\n", reg1);
+                    }
+                    else
+                    {
+                        printf("\e[0;31merror: unexpected token [%d]", i);
+                        return 1;
+                    }
                 }
             }
         }
