@@ -88,7 +88,7 @@ int main(int argc, char const *argv[])
     char ser;
     char reg1;
     char reg2;
-    char reg[2];
+    char reg[4];
 
     // loop through the tokenized program
     for (int i = 0; i < counter; i++)
@@ -101,8 +101,12 @@ int main(int argc, char const *argv[])
         }
 
         has_diri = false;
-        reg1 = '\0';
-        reg2 = '\0';
+        reg1 = 50;
+        reg2 = 50;
+        current_line_compiled[0] = 0;
+        current_line_compiled[1] = 0;
+        current_line_compiled[2] = 0;
+        current_line_compiled[3] = 0;
 
         // loop through all tokens in the line for compiling
         for (int j = 0; j < 4; j++)
@@ -118,14 +122,13 @@ int main(int argc, char const *argv[])
                 }
                 else if (tokenized_program[i][j].token_type == 'r')
                 {
-                    reg[0] = tokenized_program[i][j].value[1];
-                    reg[1] = tokenized_program[i][j].value[2];
+                    strncpy(reg, tokenized_program[i][j].value, 4);
 
-                    if (reg1 == '\0')
+                    if (reg1 == 50)
                     {
                         assign_reg(reg, &reg1);
                     }
-                    else if (reg2 == '\0')
+                    else if (reg2 == 50)
                     {
                         assign_reg(reg, &reg2);
                     }
@@ -263,6 +266,18 @@ int main(int argc, char const *argv[])
         {
             current_line_compiled[0] = 0x15;
         }
+
+        printf("%d\n", fer);
+        printf("%d\n", ser);
+
+        current_line_compiled[3] = (fer << 4) | (ser << 1) | has_diri;
+
+        printf("Result: 0b");
+        for (int v = 7; v >= 0; v--)
+        {
+            printf("%d", (current_line_compiled[3] >> v) & 1);
+        }
+        printf("\n");
     }
 
     // free allocated memory

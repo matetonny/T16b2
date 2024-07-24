@@ -190,37 +190,39 @@ uint16_t string_to_uint16(const char *str)
     return (uint16_t)strtol(str, &endptr, base);
 }
 
-void assign_reg(char reg_in[2], char *reg_out)
+void assign_reg(char reg_in[4], char *reg_out)
 {
-    if (strcmp(reg_in, "a") == 0)
-    {
-        *reg_out = 0;
-    }
-    else if (strcmp(reg_in, "b") == 0)
-    {
-        *reg_out = 1;
-    }
-    else if (strcmp(reg_in, "ao") == 0)
+
+    if (strcmp(reg_in, "@ao") == 0)
     {
         *reg_out = 2;
     }
-    else if (strcmp(reg_in, "ma") == 0)
+    else if (strcmp(reg_in, "@a") == 0)
+    {
+        *reg_out = 0;
+    }
+    else if (strcmp(reg_in, "@b") == 0)
+    {
+        *reg_out = 1;
+    }
+
+    else if (strcmp(reg_in, "@ma") == 0)
     {
         *reg_out = 3;
     }
-    else if (strcmp(reg_in, "pm") == 0)
+    else if (strcmp(reg_in, "@pm") == 0)
     {
         *reg_out = 4;
     }
-    else if (strcmp(reg_in, "fl") == 0)
+    else if (strcmp(reg_in, "@fl") == 0)
     {
         *reg_out = 5;
     }
-    else if (strcmp(reg_in, "sp") == 0)
+    else if (strcmp(reg_in, "@sp") == 0)
     {
         *reg_out = 6;
     }
-    else if (strcmp(reg_in, "bk") == 0)
+    else if (strcmp(reg_in, "@bk") == 0)
     {
         *reg_out = 7;
     }
