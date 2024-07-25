@@ -12,7 +12,7 @@ diri          -> direct input\
 @@1           -> the first register given in the insturction\
 @@2           -> the second register given in the insturction\
 \#st           -> stack\
->>#st         -> push to stack\
+\>>#st         -> push to stack\
 \#st>>         -> pop stack
 
 ### RUNNING PROGRAMS
