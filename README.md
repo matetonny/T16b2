@@ -11,7 +11,7 @@ diri          -> direct input\
 \##            -> the value of the current address in RAM\
 @@1           -> the first register given in the insturction\
 @@2           -> the second register given in the insturction\
-\#st           -> stack
+\#st           -> stack\
 \>\>#st         -> push to stack\
 \#st>>         -> pop stack
 
