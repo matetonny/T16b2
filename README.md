@@ -93,8 +93,8 @@ not  ::  !@@1/!diri -> @ao\
 cmp  ::  @@1/diri<@@2{0x0000 -> @fl}, @@1/diri==@@2{0x0001 -> @fl}, @@1/diri>@@2{0xffff -> @fl}\
 \
 jmp  ::  @pm >>#st, @@1/diri -> @pm\
-jpf  ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pm }\
-jpf  ::  @fl==0xffff{@pm >>#st, @@1/diri -> @pm }\
+jpfz  ::  @fl==0x0000{@pm >>#st, @@1/diri -> @pm }\
+jpff  ::  @fl==0xffff{@pm >>#st, @@1/diri -> @pm }\
 \
 pus  ::  @@1 >>#st, sp ++\
 pop  ::  #st>> @@1, @sp --\
