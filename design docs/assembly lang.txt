@@ -39,3 +39,7 @@ instruction :: f
 integer     :: i
 register    :: r
 memory addr :: m
+
+
+---FLAGS---
+-d :: debug

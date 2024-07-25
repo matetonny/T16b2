@@ -6,6 +6,21 @@
 
 int main(int argc, char const *argv[])
 {
+    bool debug = false;
+
+    if (argc == 1)
+    {
+        printf("\e[0;31merror: No file given.");
+        return 1;
+    }
+    else if (argc == 3)
+    {
+        if (strcmp(argv[1], "-d") == 0 || strcmp(argv[2], "-d") == 0)
+        {
+            debug = true;
+        }
+    }
+
     // open file
     FILE *pfile;
     pfile = fopen(argv[1], "r");
@@ -100,6 +115,7 @@ int main(int argc, char const *argv[])
             return 1;
         }
 
+        // reset variables
         has_diri = false;
         reg1 = 50;
         reg2 = 50;
@@ -113,7 +129,11 @@ int main(int argc, char const *argv[])
         {
             if (tokenized_program[i][j].value[0] != '\0')
             {
-                printf("Token %d, Value %s, Type: %c\n", j, tokenized_program[i][j].value, tokenized_program[i][j].token_type);
+                // debug current token
+                if (debug)
+                {
+                    printf("Token %d, Value %s, Type: %c\n", j, tokenized_program[i][j].value, tokenized_program[i][j].token_type);
+                }
 
                 if (tokenized_program[i][j].token_type == 'i')
                 {
@@ -267,20 +287,51 @@ int main(int argc, char const *argv[])
             current_line_compiled[0] = 0x15;
         }
 
-        printf("%d\n", fer);
-        printf("%d\n", ser);
-
         current_line_compiled[3] = (fer << 4) | (ser << 1) | has_diri;
 
-        printf("Result: 0b");
-        for (int v = 7; v >= 0; v--)
+        // debug current line
+        if (debug)
         {
-            printf("%d", (current_line_compiled[3] >> v) & 1);
+            printf("result:\n");
+            for (int v = 7; v >= 0; v--)
+            {
+                printf("%d", (current_line_compiled[0] >> v) & 1);
+            }
+            printf("\n");
+            for (int v = 7; v >= 0; v--)
+            {
+                printf("%d", (current_line_compiled[1] >> v) & 1);
+            }
+            printf("\n");
+            for (int v = 7; v >= 0; v--)
+            {
+                printf("%d", (current_line_compiled[2] >> v) & 1);
+            }
+            printf("\n");
+            for (int v = 7; v >= 0; v--)
+            {
+                printf("%d", (current_line_compiled[3] >> v) & 1);
+            }
+            printf("\n");
         }
-        printf("\n");
+
+        // write the current line to the compiled program
+        compiled_program[i * 4] = current_line_compiled[0];
+        compiled_program[i * 4 + 1] = current_line_compiled[1];
+        compiled_program[i * 4 + 2] = current_line_compiled[2];
+        compiled_program[i * 4 + 3] = current_line_compiled[3];
     }
 
-    // free allocated memory
+    // write to output file
+    FILE *output_pfile;
+
+    output_pfile = fopen("output.hex", "wb");
+
+    fwrite(&compiled_program, 1, counter * 4, output_pfile);
+
+    fclose(output_pfile);
+
+    // free memory
     for (int b = 0; b < counter; ++b)
     {
         free(tokenized_program[b]);

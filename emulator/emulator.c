@@ -107,8 +107,6 @@ int main(int argc, char const *argv[])
 
             *registers[comp_instruction.ser] = memory[bk][ma];
 
-            printf("%x", *registers[comp_instruction.ser]);
-
             break;
 
         // str
@@ -123,6 +121,11 @@ int main(int argc, char const *argv[])
             }
 
             memory[bk][ma] = *registers[comp_instruction.ser];
+
+            if (ma == 0xffff)
+            {
+                printf("%c", memory[bk][ma]);
+            }
 
             break;
 

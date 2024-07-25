@@ -31,6 +31,7 @@ stored in @ma
 
 reserved spaces:
 #0x0000:#0xfffe -> free space
+#0xffff         -> output
 
 16 banks. bank number stored in @bk
 
